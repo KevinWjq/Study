@@ -5,7 +5,8 @@ from geektime.service.petclinic.utils.log import log
 
 
 class Owners:
-    def list(self, lastName) -> list[Owner]:
+    '''def list(self, lastName) -> list[Owner]:'''
+    def list(self, lastName):
         # r = requests.get(
         #     'https://spring-petclinic-rest.k8s.hogwarts.ceshiren.com/petclinic/api/owners',
         #     params={'lastName': lastName}

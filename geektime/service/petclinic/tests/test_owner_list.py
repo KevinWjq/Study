@@ -41,11 +41,11 @@ class TestOwnersList(TestOwner):
         r = self.owners.list('ceshiren.com')
         assert r == []
 
-    def test_search_result_single(self):
-        r = self.owners.list('Ke')
-        print(r)
-        assert len(r) == 1
-        assert r[0].lastName == 'Ke'
+    # def test_search_result_single(self):
+    #     r = self.owners.list('Ke')
+    #     print(r)
+    #     assert len(r) == 1
+    #     assert r[0].lastName == 'Ke'
 
     def test_search_result_multi(self):
         r = self.owners.list('Seven')
