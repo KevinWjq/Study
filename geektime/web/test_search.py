@@ -19,7 +19,10 @@ class TestSearch:
         self.driver.find_element(By.ID, "search-button").click()
         self.driver.find_element(By.CSS_SELECTOR, '[title="清除搜索内容"]').click()
 
-    @pytest.mark.parametrize('keyword', ['selenium', 'requests', 'appnium'])
+    def teardown_class(self):
+         self.driver.quit()
+
+    @pytest.mark.parametrize('keyword', ['selenium', 'requests', 'python'])
     def test_search(self, keyword):
         self.driver.find_element(By.ID, 'search-term').send_keys(keyword)
         self.driver.find_element(By.CSS_SELECTOR, '[title="打开高级搜索"]').click()
