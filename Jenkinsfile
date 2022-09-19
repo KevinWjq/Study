@@ -30,7 +30,7 @@ pipeline {
                 }
                 stage('Test3'){
                     steps {
-                        sh "echo test3"
+                        sh "echo test33"
                     }
                 }
                 stage('Test1'){
@@ -40,7 +40,7 @@ pipeline {
                     }
                     post {
                         // If Maven was able to run the tests, even if some of the test
-                        // failed, record the test results and archive the jar file.
+                        // failed, record the test results and archive the jar file..
                         success {
                             junit 'junit.xml'
                             archiveArtifacts 'junit.xml'
