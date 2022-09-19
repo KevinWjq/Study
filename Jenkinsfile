@@ -14,20 +14,13 @@ pipeline {
                 sh 'rm -rf allure junit.xml'
             }
         }
-
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
                 git 'https://github.com/KevinWjq/Study.git'
 
-                // Run Maven on a Unix agent.
-                sh "mvn -Dmaven.test.failure.ignore=true clean package"
-
-                // To run Maven on a Windows agent, use
-                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
             }
         }
-
         stage('Tests'){
             parallel {
                 stage('Test2'){
@@ -52,10 +45,10 @@ pipeline {
                             junit 'junit.xml'
                             archiveArtifacts 'junit.xml'
                             allure includeProperties: false,jdk: '',results:[[path:'allure']
-                        }
-                    }
-                }
-            }
-        }
-    }
+						}
+					}
+				}
+			}
+		}
+	}
 }
