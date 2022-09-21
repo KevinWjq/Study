@@ -9,9 +9,9 @@ pipeline {
     }
 
     stages {
-        stage('Clean'){
-            steps{
-                sh 'rm -rf allure junit.xml'
+        stage("Clean"){
+            steps {
+                sh "rm -rf allure junit.xml "
             }
         }
         stage('Build') {
@@ -21,34 +21,40 @@ pipeline {
 
             }
         }
-        stage('Tests'){
+        stage('Tests') {
             parallel {
-                stage('Test2'){
+                stage('Test2') {
                     steps {
                         sh "echo test2"
                     }
                 }
-                stage('Test3'){
+                stage('Test3') {
                     steps {
-                        sh "echo test33"
+                        sh "echo test3"
                     }
                 }
-                stage('Test1'){
+                stage('Test1') {
                     steps {
-                        sh "pip3 install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple/"
-                        sh "pytest --alluredir=allure --junitxml=junit.xml geektime/service/petclinic/"
+
+                        // Run Maven on a Unix agent.
+                        sh "pip3 install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple/ "
+                        sh "pytest  --alluredir=allure --junitxml=junit.xml geektime/service/petclinic/ "
+
+                        // To run Maven on a Windows agent, use
+                        // bat "mvn -Dmaven.test.failure.ignore=true clean package"
                     }
+
                     post {
                         // If Maven was able to run the tests, even if some of the test
-                        // failed, record the test results and archive the jar file..
+                        // failed, record the test results and archive the jar file.
                         success {
                             junit 'junit.xml'
                             archiveArtifacts 'junit.xml'
-                            allure includeProperties: false,jdk: '',results:[[path:'allure']
-						}
-					}
-				}
-			}
-		}
-	}
+                            allure includeProperties: false, jdk: '', results: [[path: 'allure']]
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
